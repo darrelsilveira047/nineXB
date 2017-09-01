@@ -44,7 +44,7 @@ class Welcome extends CI_Controller {
 	}
 
 	public function updateEmployee() {
-		$countJR = count($this->employee_m->getEmployeeJR($this->input->post('jobrole')));
+		$countJR = count($this->employee_m->getEmployeeJR($this->input->post('id'), $this->input->post('jobrole')));
 		$data['error'] = $countJR >= 4 ? 'Maximum 4 records assigned per Job Role.' : '';
 		if ($data['error'] == '') {
 			$data = array(

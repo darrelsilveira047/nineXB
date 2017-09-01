@@ -32,8 +32,11 @@ class Employee_m extends CI_Model {
 		$this->db->update('employee', $data);
 		return $this->db->affected_rows();
 	}
-	public function getEmployeeJR($job_role) {
+	public function getEmployeeJR($id = NULL,$job_role) {
 		$this->db->where('emp_job_role', $job_role);
+		if ( ! empty($id)) {
+			$this->db->where('emp_id != ', $id);
+		}
 		$query = $this->db->get('employee');
 		$data = $query->result_array();
 		return $data;
