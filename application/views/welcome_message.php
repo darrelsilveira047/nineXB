@@ -1,6 +1,7 @@
 <?php
 	defined('BASEPATH') or exit('No direct script access allowed');
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
@@ -16,9 +17,6 @@
 		</style>
 	</head>
 	<body>
-		<?php
-			//print_r($employees);
-		?>
 		<div class='container'>
 			<h2 style='text-align: center;'>Employee Details</h2>
 			<div class='row'>
@@ -38,8 +36,8 @@
 								$html .= "<td><span id='spln" . $emp['emp_id'] . "'>" . $emp['emp_lname']. "</span></td>";
 								$html .= "<td><span id='spem" . $emp['emp_id'] . "'>" . $emp['emp_email'] . "</span></td>";
 								$html .= "<td><span id='spjr" . $emp['emp_id'] . "'>" . $emp['emp_job_role'] . "</span></td>";
-								$html .= "<td class = 'centeralign'><button class='btn btn-danger btn-xs' id='btndel" . $emp['emp_id'] . "' title='Delete' onclick='deleteEmp(\"" . $emp['emp_id'] . "\")'><span class='glyphicon glyphicon-trash'></span></button>";
-								$html .= "&nbsp;<button class='btn btn-info btn-xs' id='btnedit" . $emp['emp_id'] . "' title = 'Edit' onclick='editEmp(\"". $emp['emp_id'] ."\")'><span class='glyphicon glyphicon-pencil'></span></button>";
+								$html .= "<td class = 'centeralign'><button class='btn btn-info btn-xs' id='btnedit" . $emp['emp_id'] . "' title = 'Edit' onclick='editEmp(\"". $emp['emp_id'] ."\")'><span class='glyphicon glyphicon-pencil'></span></button>";
+								$html .= "&nbsp;<button class='btn btn-danger btn-xs' id='btndel" . $emp['emp_id'] . "' title='Delete' onclick='deleteEmp(\"" . $emp['emp_id'] . "\")'><span class='glyphicon glyphicon-trash'></span></button>";
 								$html .= "&nbsp;<button class='btn btn-success btn-xs' style = 'display:none;margin-top: 6px;margin-left: -6px;' id='btnsave" . $emp['emp_id'] . "' title = 'Save' onclick='updateEmp(\"". $emp['emp_id'] ."\")'><span class='glyphicon glyphicon-floppy-saved'></span></button>";
 								$html .= "&nbsp;<button class='btn btn-default btn-xs' style = 'display:none;margin-top: 6px;' id = 'btncancel" . $emp['emp_id'] . "' title = 'Cancel' onclick='cancelEmp(\"". $emp['emp_id'] ."\")'><span class='glyphicon glyphicon-remove'></span></button></td></tr>";
 								echo $html;
@@ -48,7 +46,7 @@
 						<tr id = 'insertrow'>
 							<td><input class='form-control' id = 'fname' type="text"  placeholder="Add new..." /></td>
 							<td><input class='form-control' id = 'lname' type="text"  placeholder="Add new..." /></td>
-							<td><input class='form-control' id = 'email' type="text"  placeholder="Add new..." /></td>
+							<td><input class='form-control' id = 'email' type="email"  placeholder="Add new..." /></td>
 							<td><input class='form-control' id = 'jrole' type="text"  placeholder="Add new..." /></td>
 							<td style='text-align:center !important;display: inline-flex !important;padding-top: 14px !important;'>
 								<button class='btn btn-warning btn-xs' title = 'Clear' onclick='clearInputs()'><span class='glyphicon glyphicon-remove'></span></button>
@@ -76,17 +74,22 @@
 						jobrole: $("#jrole").val().trim(),
 					},
 					success: function(response) {
-						var html = "<tr id = 'row" + response.emp_id + "' >";
-						html += "<td><span id = 'spfn" + response.emp_id + "'>" + response.emp_fname + "</span></td>";
-						html += "<td><span id = 'spln" + response.emp_id + "'>" + response.emp_lname + "</span></td>";
-						html += "<td><span id = 'spem" + response.emp_id + "'>" + response.emp_email + "</span></td>";
-						html += "<td><span id = 'spjr" + response.emp_id + "'>" + response.emp_job_role + "</span></td>";
-						html += "<td class = 'centeralign'><button class='btn btn-danger btn-xs' id = 'btndel" + response.emp_id + "' title='Delete' onclick='deleteEmp(\"" + response.emp_id + "\")'><span class='glyphicon glyphicon-trash'></span></button>";
-						html +=	"&nbsp;<button class='btn btn-info btn-xs' id = 'btnedit" + response.emp_id + "' title = 'Edit' onclick='editEmp(\"" + response.emp_id + "\")'><span class='glyphicon glyphicon-pencil'></span></button>";
-						html += "&nbsp;<button class='btn btn-success btn-xs' style = 'display:none;margin-top: 6px;margin-left: -6px;' id = 'btnsave" + response.emp_id + "' title = 'Save' onclick='updateEmp(\"" + response.emp_id + "\")'><span class='glyphicon glyphicon-floppy-saved'></span></button>";
-						html += "&nbsp;<button class='btn btn-default btn-xs' style = 'display:none;margin-top: 6px;' id = 'btncancel" + response.emp_id + "' title = 'Cancel' onclick='cancelEmp(\"" + response.emp_id + "\")'><span class='glyphicon glyphicon-remove'></span></button></td></tr>";
-						$('#insertrow').before(html);
-						clearInputs();
+						console.log(response);
+						if ( ! response.error) {
+							var html = "<tr id = 'row" + response.emp_id + "' >";
+							html += "<td><span id = 'spfn" + response.emp_id + "'>" + response.emp_fname + "</span></td>";
+							html += "<td><span id = 'spln" + response.emp_id + "'>" + response.emp_lname + "</span></td>";
+							html += "<td><span id = 'spem" + response.emp_id + "'>" + response.emp_email + "</span></td>";
+							html += "<td><span id = 'spjr" + response.emp_id + "'>" + response.emp_job_role + "</span></td>";
+							html += "<td class = 'centeralign'><button class='btn btn-info btn-xs' id = 'btnedit" + response.emp_id + "' title = 'Edit' onclick='editEmp(\"" + response.emp_id + "\")'><span class='glyphicon glyphicon-pencil'></span></button>";
+							html +=	"&nbsp;<button class='btn btn-danger btn-xs' id = 'btndel" + response.emp_id + "' title='Delete' onclick='deleteEmp(\"" + response.emp_id + "\")'><span class='glyphicon glyphicon-trash'></span></button>";
+							html += "&nbsp;<button class='btn btn-success btn-xs' style = 'display:none;margin-top: 6px;margin-left: -6px;' id = 'btnsave" + response.emp_id + "' title = 'Save' onclick='updateEmp(\"" + response.emp_id + "\")'><span class='glyphicon glyphicon-floppy-saved'></span></button>";
+							html += "&nbsp;<button class='btn btn-default btn-xs' style = 'display:none;margin-top: 6px;' id = 'btncancel" + response.emp_id + "' title = 'Cancel' onclick='cancelEmp(\"" + response.emp_id + "\")'><span class='glyphicon glyphicon-remove'></span></button></td></tr>";
+							$('#insertrow').before(html);
+							clearInputs();
+						} else {
+							alert(response.error);
+						}
 					},
 					error: function(response) {
 						console.log(response);
@@ -151,14 +154,18 @@
 						jobrole: jrText,
 					},
 					success: function(response) {
-						alert(response);
-						$('#spfn' + id).text(fnText).show();
-						$('#spln' + id).text(lnText).show();
-						$('#spem' + id).text(emText).show();
-						$('#spjr' + id).text(jrText).show();
-						$("#fname" + id + ", #lname" + id + ", #email" + id + ", #jrole" + id).remove();
-						$('#btndel' + id + ', #btnedit' + id).show();
-						$('#btnsave' + id + ', #btncancel' + id).hide();
+						if ( ! response.error){
+							$('#spfn' + id).text(fnText).show();
+							$('#spln' + id).text(lnText).show();
+							$('#spem' + id).text(emText).show();
+							$('#spjr' + id).text(jrText).show();
+							$("#fname" + id + ", #lname" + id + ", #email" + id + ", #jrole" + id).remove();
+							$('#btndel' + id + ', #btnedit' + id).show();
+							$('#btnsave' + id + ', #btncancel' + id).hide();
+						} else {
+							alert(response.error);
+						}
+						
 					},
 					error: function(response) {
 						console.log(response);
