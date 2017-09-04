@@ -16,14 +16,8 @@ class Welcome extends CI_Controller {
 
 	public function insertOperation() {
 		$countEMPS = count($this->employee_m->getEmployee());
-		$countJR = count($this->employee_m->getEmployeeJR($this->input->post('jobrole')));
-		/*$data['error'] = '';
-		if ($countjr >= 0) {
-			$data['error'] = 'Maximum 4 records assigned per Job Role.';
-		}
-		if ($countdb >= 10) {
-			$data['error'] = 'Data cannot exceed more then 10 rows.';
-		}*/
+		$countJR = count($this->employee_m->getEmployeeJR(NULL, $this->input->post('jobrole')));
+
 		$data['error'] = ($countJR >= 4 ? 'Maximum 4 records assigned per Job Role.' : ($countEMPS >= 10 ? 'Data cannot exceed more then 10 rows.' : '') ) ;
 		if ($data['error'] == '') {
 			$data = array(
