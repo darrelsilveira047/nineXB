@@ -23,3 +23,11 @@ Installation
 		-username / password
 	application/config/config.php
 		-Update the base_url with your localhost:port number for Apache
+
+
+
+************
+Demo
+************
+
+http://octavius.x10host.com/
