@@ -67,6 +67,7 @@
 					type: "POST",
 					url: url,
 					dataType: "json",
+					async : false,
 					data: {
 						fname: $("#fname").val().trim(),
 						lname: $("#lname").val().trim(),
@@ -103,6 +104,7 @@
 					type: "POST",
 					url: deleteUrl,
 					dataType: "json",
+					async : false,
 					data: {
 						id : id
 					},
@@ -146,6 +148,7 @@
 					type: "POST",
 					url: updateurl,
 					dataType: "json",
+					async : false,
 					data: {
 						id: id,
 						fname: fnText,
